@@ -1,0 +1,40 @@
+{
+  "name": "tricky-foxy-backend",
+  "version": "1.0.0",
+  "description": "Tricky foxy game",
+  "author": "(c) Alexander Belov (github.com/IPRIT)",
+  "scripts": {
+    "start-dev": "node server.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.7.1",
+    "deap": "^1.0.0",
+    "express": "^4.14.0",
+    "express-form-data": "0.0.2",
+    "express-light-limiter": "^1.0.1",
+    "express-session": "^1.14.0",
+    "lodash": "^4.16.2",
+    "log4js": "^0.6.38",
+    "mysql": "^2.11.1",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.0",
+    "require-json5": "^1.0.2",
+    "sequelize": "^3.23.6",
+    "type-check": "^0.3.2",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-project-relative-import": "^2.0.0",
+    "morgan": "^1.7.0"
+  },
+  "private": true
+}

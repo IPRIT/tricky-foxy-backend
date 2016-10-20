@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.all('*', cors);
 
-router.use('/api', telegram);
+router.use('/game-api', telegram);
 
 export default router;

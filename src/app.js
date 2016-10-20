@@ -36,7 +36,7 @@ app.use(session({
 /*
  * Connecting routers
  */
-app.use('/api', [ /*requestRestrict({ error: new HttpError('Too many requests', 429) })*/ ], apiRouter);
+app.use('/', [ /*requestRestrict({ error: new HttpError('Too many requests', 429) })*/ ], apiRouter);
 
 app.use(ClientError);
 app.use(ServerError);

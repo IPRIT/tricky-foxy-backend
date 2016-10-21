@@ -34,8 +34,7 @@ async function handleInlineQuery(data) {
     reply_markup: {
       inline_keyboard: [[{
         text: 'Play Tricky Foxy!',
-        url: 'http://play.alexbelov.xyz',
-        callback_data: 'test'
+        callback_game: true
       }]]
     }
   }];

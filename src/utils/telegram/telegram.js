@@ -49,9 +49,8 @@ async function handleInlineQuery(data) {
   return sendApiRequest('answerInlineQuery', answerInlineQuery)
 }
 
-async function handleCallbackQuery({
-  id, from, message, inline_message_id, chat_instance, data, game_short_name
-} = {}) {
+async function handleCallbackQuery(_data = {}) {
+  let { id, from, message, inline_message_id, chat_instance, data, game_short_name } = _data;
   if (game_short_name !== 'trickyfoxy') {
     throw new HttpError('Game not found');
   }
@@ -59,7 +58,7 @@ async function handleCallbackQuery({
     callback_query_id: id,
     text: 'test',
     show_alert: true,
-    url: `http://play.alexbelov.xyz/#session=${await session.create(from)}`
+    url: `http://play.alexbelov.xyz/#session=${await session.create(_data)}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }

@@ -4,7 +4,7 @@ import deap from 'deap';
 import lodash from 'lodash';
 import request from 'request-promise';
 import { config } from '../index';
-import * as models from '../../models';
+import { Session } from '../../models';
 
 export function create(_data) {
   let { id, from = {}, message = {}, inline_message_id, chat_instance, data, game_short_name } = _data;

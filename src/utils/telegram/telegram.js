@@ -31,7 +31,8 @@ async function handleInlineQuery(data) {
     game_short_name: 'trickyfoxy',
     name: 'Tricky Foxy',
     reply_markup: [[{
-      text: 'Play Tricky Foxy!'
+      text: 'Play Tricky Foxy!',
+      callback_data: 'test'
     }]]
   }];
   let results = games.filter(game => game.name.includes(query))
@@ -41,10 +42,25 @@ async function handleInlineQuery(data) {
     });
   let answerInlineQuery = {
     inline_query_id: id,
-    cache_time: 3600,
+    cache_time: 1,
     results
   };
   return sendApiRequest('answerInlineQuery', answerInlineQuery)
+}
+
+async function handleCallbackQuery({
+  id, from, message, inline_message_id, chat_instance, data, game_short_name
+} = {}) {
+  if (game_short_name !== 'trickyfoxy') {
+    throw new HttpError('Game not found');
+  }
+  let answerCallbackQuery = {
+    callback_query_id: id,
+    text: 'test',
+    show_alert: true,
+    url: 'http://play.alexbelov.xyz/#session=test'
+  };
+  return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }
 
 async function sendApiRequest(method, data) {

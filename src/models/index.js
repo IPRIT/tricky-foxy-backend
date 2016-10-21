@@ -1,5 +1,6 @@
 import Log from 'log4js';
 import sequelize from './sequelize';
+import Session from './Session';
 
 const log = Log.getLogger('models');
 
@@ -14,4 +15,5 @@ sequelize.sync(/**{ force: true }/**/).then(() => {
 //todo
 
 export {
+  Session
 };

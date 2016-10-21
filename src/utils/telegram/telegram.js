@@ -3,7 +3,7 @@ import { typeCheck as isType } from 'type-check';
 import deap from 'deap';
 import lodash from 'lodash';
 import request from 'request-promise';
-import { config } from '../index';
+import { config, session } from '../index';
 
 export function handle(data) {
   return Promise.resolve().then(() => {
@@ -58,7 +58,7 @@ async function handleCallbackQuery({
     callback_query_id: id,
     text: 'test',
     show_alert: true,
-    url: 'http://play.alexbelov.xyz/#session=test'
+    url: `http://play.alexbelov.xyz/#session=${await session.create(from)}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }

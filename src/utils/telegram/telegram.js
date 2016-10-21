@@ -3,7 +3,8 @@ import { typeCheck as isType } from 'type-check';
 import deap from 'deap';
 import lodash from 'lodash';
 import request from 'request-promise';
-import { config, session } from '../index';
+import { config } from '../index';
+import * as session from './session';
 
 export function handle(data) {
   return Promise.resolve().then(() => {

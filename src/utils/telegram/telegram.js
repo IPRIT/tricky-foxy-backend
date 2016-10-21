@@ -41,7 +41,7 @@ async function handleInlineQuery(data) {
     cache_time: 3600,
     results
   };
-  return sendApiRequest(answerInlineQuery, 'answerInlineQuery')
+  return sendApiRequest('answerInlineQuery', answerInlineQuery)
 }
 
 async function sendApiRequest(method, data) {

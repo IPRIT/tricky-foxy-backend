@@ -16,16 +16,20 @@ async function _handle(data = {}) {
   if (!isType('Object', data)) {
     throw new HttpError();
   }
-  let { inline_query, callback_query } = data;
+  let { inline_query, callback_query, message } = data;
   if (inline_query) {
     return handleInlineQuery(inline_query);
   } else if (callback_query) {
     return handleCallbackQuery(callback_query);
+  } else if (message) {
+    return handleMessage(message);
+  } else {
+    throw new HttpError('Not implemented', 200);
   }
 }
 
-async function handleInlineQuery(data) {
-  let { id, from, query, offset } = data;
+async function handleInlineQuery(_data = {}) {
+  let { id, from, query, offset } = _data;
   let games = [{
     type: 'game',
     id: Math.floor(Math.random() * 1e9 * 2).toString(16),
@@ -64,6 +68,14 @@ async function handleCallbackQuery(_data = {}) {
     url: `http://play.alexbelov.xyz/#session=${sessionInstance.sessionId}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
+}
+
+async function handleMessage(_data = {}) {
+  let { chat, game_short_name = 'trickyfoxy' } = _data;
+  return sendApiRequest('sendGame', {
+    chat_id: chat.id,
+    game_short_name
+  });
 }
 
 async function sendApiRequest(method, data) {

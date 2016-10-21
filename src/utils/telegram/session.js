@@ -21,7 +21,6 @@ export function create(_data) {
     data,
     game_short_name
   });
-  console.log(Session);
   return Session.create({
     query_id: id,
     from_id: from.id,

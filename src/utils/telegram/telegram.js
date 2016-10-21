@@ -38,7 +38,7 @@ async function handleInlineQuery(data) {
       }]]
     }
   }];
-  let results = games.filter(game => game.name.includes(query))
+  let results = games.filter(game => game.name.toLowerCase().includes(query.toLowerCase()))
     .map(game => {
       game.name = null;
       return game;

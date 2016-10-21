@@ -29,7 +29,10 @@ async function handleInlineQuery(data) {
     type: 'game',
     id: Math.floor(Math.random() * 1e9 * 2).toString(16),
     game_short_name: 'trickyfoxy',
-    name: 'Tricky Foxy'
+    name: 'Tricky Foxy',
+    reply_markup: [[{
+      text: 'Play Tricky Foxy!'
+    }]]
   }];
   let results = games.filter(game => game.name.includes(query))
     .map(game => {

@@ -23,8 +23,8 @@ async function _handle(data = {}) {
   }
 }
 
-async function handleInlineQuery(query) {
-  let { id, from, query, offset } = query;
+async function handleInlineQuery(data) {
+  let { id, from, query, offset } = data;
   let games = [{
     type: 'game',
     id: Math.floor(Math.random() * 1e9 * 2).toString(16),
@@ -41,6 +41,7 @@ async function handleInlineQuery(query) {
     cache_time: 3600,
     results
   };
+  return sendApiRequest(answerInlineQuery, 'answerInlineQuery')
 }
 
 async function sendApiRequest(method, data) {

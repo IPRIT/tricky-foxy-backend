@@ -54,12 +54,12 @@ async function handleCallbackQuery(_data = {}) {
   if (game_short_name !== 'trickyfoxy') {
     throw new HttpError('Game not found');
   }
-  let session = await session.create(_data);
+  let sessionHash = await session.create(_data);
   let answerCallbackQuery = {
     callback_query_id: id,
     text: 'test',
     show_alert: true,
-    url: `http://play.alexbelov.xyz/#session=${session}`
+    url: `http://play.alexbelov.xyz/#session=${sessionHash}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }

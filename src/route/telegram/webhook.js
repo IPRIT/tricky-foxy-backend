@@ -1,6 +1,6 @@
 import express from 'express';
 import { config } from '../../utils';
-import { telegram } from '../../utils/telegram';
+import * as telegram from '../../utils/telegram/telegram';
 
 const router = express.Router();
 

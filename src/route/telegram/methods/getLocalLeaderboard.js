@@ -25,7 +25,7 @@ async function handle(_data) {
     throw new HttpError('Session not found');
   }
   let chatId = sessionInstance.chat_instance;
-  let localHighscores = await Session.findAll({
+  return await Session.findAll({
     attributes: [
       ['from_id', 'id'],
       ['from_first_name', 'first_name'],
@@ -41,7 +41,9 @@ async function handle(_data) {
       required: true,
       attributes: []
     }],
-    group: [ 'Highscores.userId' ]
+    offset: 0,
+    limit: 50,
+    group: [ 'Highscores.userId' ],
+    order: [ 'score', 'DESC' ]
   });
-  return localHighscores;
 }

@@ -27,10 +27,10 @@ async function handle(_data) {
   let chatId = sessionInstance.chat_instance;
   let localHighscores = await Session.findAll({
     attributes: [
-      'from_id',
-      'from_first_name',
-      'from_last_name',
-      'from_username',
+      ['from_id', 'id'],
+      ['from_first_name', 'first_name'],
+      ['from_last_name', 'last_name'],
+      ['from_username', 'username'],
       [Sequelize.fn('max', Sequelize.col('Highscores.score')), 'score']
     ],
     where: {

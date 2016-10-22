@@ -44,11 +44,10 @@ function filter(obj, attrs) {
               [ attr ]: filter(obj[ attr ], attrs)
             });
           } else {
-            //todo: what?
+            //todo: why?
             newObj[ attr ] = obj[ attr ];
           }
         } else {
-          //todo: what?
           newObj[ attr ] = obj[ attr ];
         }
       }

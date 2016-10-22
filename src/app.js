@@ -36,7 +36,13 @@ app.use(session({
 /*
  * Connecting routers
  */
-app.use('/', [ /*requestRestrict({ error: new HttpError('Too many requests', 429) })*/ ], apiRouter);
+app.use('/', [
+  requestRestrict({
+    error: new HttpError('Too many requests', 429),
+    lookup: [ 'headers.x-real-ip', 'headers.X-Real-IP', 'headers.x-forwarded-for' ],
+    maxRequestsPerQuantum: 20
+  })
+], apiRouter);
 
 app.use(ClientError);
 app.use(ServerError);

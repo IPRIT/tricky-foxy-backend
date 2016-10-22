@@ -13,7 +13,6 @@ sequelize.sync(/**{ force: true }/**/).then(() => {
 /**
  * Define relatives between models
  */
-//todo
 Session.hasMany(Highscore, { foreignKey: 'sessionId', targetKey: 'id' });
 
 export {

@@ -42,7 +42,6 @@ async function handle(_data) {
     }],
     offset: 0,
     limit: 50,
-    group: [ 'Highscores.userId' ],
-    order: 'score DESC'
+    group: [ 'Highscores.userId' ]
   });
 }

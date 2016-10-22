@@ -25,7 +25,7 @@ async function handle(_data) {
     throw new HttpError('Session not found');
   }
   let chatId = sessionInstance.chat_instance;
-  return await Session.findAll({
+  return Session.findAll({
     attributes: [
       ['from_id', 'id'],
       ['from_first_name', 'first_name'],

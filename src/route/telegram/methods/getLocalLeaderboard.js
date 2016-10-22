@@ -27,10 +27,10 @@ async function handle(_data) {
   let chatId = sessionInstance.chat_instance;
   return Session.findAll({
     attributes: [
-      ['from_id', 'id'],
-      ['from_first_name', 'first_name'],
-      ['from_last_name', 'last_name'],
-      ['from_username', 'username'],
+      'from_id',
+      'from_first_name',
+      'from_last_name',
+      'from_username',
       [Sequelize.fn('max', Sequelize.col('Highscores.score')), 'score']
     ],
     where: {
@@ -38,10 +38,9 @@ async function handle(_data) {
     },
     include: [{
       model: Highscore,
-      required: true
+      required: true,
+      attributes: []
     }],
-    offset: 0,
-    limit: 50,
     group: [ 'Highscores.userId' ]
   });
 }

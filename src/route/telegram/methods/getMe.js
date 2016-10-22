@@ -25,17 +25,17 @@ async function handle(_data) {
   }
   let localHighscore = await Highscore.max('score', {
     where: {
-      userId: session.from_id,
-      chatId: session.chat_instance
+      userId: sessionInstance.from_id,
+      chatId: sessionInstance.chat_instance
     }
   });
   let globalHighscore = await Highscore.max('score', {
     where: {
-      userId: session.from_id
+      userId: sessionInstance.from_id
     }
   });
   
-  return deap.extend(session.get({ plain: true }), {
+  return deap.extend(sessionInstance.get({ plain: true }), {
     localHighscore, globalHighscore
   });
 }

@@ -43,6 +43,6 @@ async function handle(_data) {
       attributes: []
     }],
     group: [ 'Highscores.userId' ],
-    order: [ [ 'Highscores.score', 'DESC' ] ]
+    order: [ [ Highscore, 'score', 'DESC' ] ]
   });
 }

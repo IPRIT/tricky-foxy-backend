@@ -44,6 +44,6 @@ async function handle(_data) {
     offset: 0,
     limit: 50,
     group: [ 'Highscores.userId' ],
-    order: [ 'Highscores.score', 'DESC' ]
+    order: [ [Sequelize.fn('max', Sequelize.col('Highscores.score')), 'score'], 'DESC' ]
   });
 }

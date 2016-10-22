@@ -1,6 +1,7 @@
 import Log from 'log4js';
 import sequelize from './sequelize';
 import Session from './Session';
+import Highscore from './Highscore';
 
 const log = Log.getLogger('models');
 
@@ -13,6 +14,7 @@ sequelize.sync(/**{ force: true }/**/).then(() => {
  * Define relatives between models
  */
 //todo
+Session.hasMany(Highscore, { foreignKey: 'sessionId', targetKey: 'id' });
 
 export {
   Session

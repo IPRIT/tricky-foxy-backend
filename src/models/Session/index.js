@@ -53,6 +53,12 @@ let Session = sequelize.define('Session', {
   indexes: [{
     name: 'session_id_index',
     fields: [ 'sessionId' ]
+  }, {
+    name: 'user_id_index',
+    fields: [ 'from_id' ]
+  }, {
+    name: 'chat_id_index',
+    fields: [ 'chat_instance' ]
   }]
 });
 

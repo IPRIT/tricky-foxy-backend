@@ -23,17 +23,17 @@ async function handle(_data) {
   if (!sessionInstance) {
     throw new HttpError('Session not found');
   }
-  let localHighscore = (await Highscore.max('score', {
+  let localHighscore = await Highscore.max('score', {
     where: {
       userId: session.from_id,
       chatId: session.chat_instance
     }
-  })) || 0;
-  let globalHighscore = (await Highscore.max('score', {
+  });
+  let globalHighscore = await Highscore.max('score', {
     where: {
       userId: session.from_id
     }
-  })) || 0;
+  });
   
   return deap.extend(session.get({ plain: true }), {
     localHighscore, globalHighscore

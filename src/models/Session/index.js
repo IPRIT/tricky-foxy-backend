@@ -24,10 +24,12 @@ let Session = sequelize.define('Session', {
     type: Sequelize.INTEGER
   },
   from_first_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: ''
   },
   from_last_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: ''
   },
   from_username: {
     type: Sequelize.STRING,

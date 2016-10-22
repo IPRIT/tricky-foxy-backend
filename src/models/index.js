@@ -17,5 +17,5 @@ sequelize.sync(/**{ force: true }/**/).then(() => {
 Session.hasMany(Highscore, { foreignKey: 'sessionId', targetKey: 'id' });
 
 export {
-  Session
+  Session, Highscore
 };

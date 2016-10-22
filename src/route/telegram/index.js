@@ -7,5 +7,6 @@ const router = express.Router();
 router.use('/telegram', webhook);
 router.get('/getMe', methods.getMe);
 router.get('/getLocalLeaderboard', methods.getLocalLeaderboard);
+router.get('/getGlobalLeaderboard', methods.getGlobalLeaderboard);
 
 export default router;

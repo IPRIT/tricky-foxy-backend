@@ -38,8 +38,7 @@ async function handle(_data) {
     },
     include: [{
       model: Highscore,
-      required: true,
-      attributes: []
+      required: true
     }],
     offset: 0,
     limit: 50,

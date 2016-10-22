@@ -31,7 +31,7 @@ async function handle(_data) {
       ['from_first_name', 'first_name'],
       ['from_last_name', 'last_name'],
       ['from_username', 'username'],
-      [Sequelize.fn('max', Sequelize.col('Highscores.score')), 'score']
+      [Sequelize.fn('max', Sequelize.col('Highscore.score')), 'score']
     ],
     where: {
       chat_instance: chatId

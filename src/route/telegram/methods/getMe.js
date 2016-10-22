@@ -28,12 +28,12 @@ async function handle(_data) {
       userId: sessionInstance.from_id,
       chatId: sessionInstance.chat_instance
     }
-  });
+  }) || 0;
   let globalHighscore = await Highscore.max('score', {
     where: {
       userId: sessionInstance.from_id
     }
-  });
+  }) || 0;
   
   return deap.extend(sessionInstance.get({ plain: true }), {
     localHighscore, globalHighscore

@@ -54,14 +54,13 @@ function getScore(passedIslands, sessionInstance) {
   do {
     score = getScoreFromBlock(block, sessionInstance.createdAt);
     ++_it;
-  } while (block = passedIslands._n && _iterRestrict > _it);
+  } while (block = block._n && _iterRestrict > _it);
   return score;
 }
 
 function getScoreFromBlock(block, sessionCreatedAt) {
   let { _f, _p, _r, _s, _t } = block || {};
   
-  console.log(_f);
   if (!Array.isArray(_f) || _f.length !== 2) {
     throw new HttpError('f');
   } else if (_p > 1 || _p < 0) {

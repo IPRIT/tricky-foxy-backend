@@ -40,7 +40,7 @@ app.use('/', [
   requestRestrict({
     error: new HttpError('Too many requests', 429),
     lookup: [ 'headers.x-real-ip', 'headers.X-Real-IP', 'headers.x-forwarded-for' ],
-    maxRequestsPerQuantum: 20
+    maxRequestsPerQuantum: 10
   })
 ], apiRouter);
 

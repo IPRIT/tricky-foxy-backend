@@ -36,6 +36,5 @@ async function handle(_data) {
     order: [ [ Highscore, 'score', 'DESC' ] ]
   });
   scores = scores.map(score => score.get({plain: true})).sort((a, b) => b.score - a.score);
-  console.log(scores);
   return scores.slice(0, 50);
 }

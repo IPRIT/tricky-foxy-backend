@@ -52,6 +52,7 @@ function getScore(passedIslands, sessionInstance) {
   let _iterRestrict = 1e6;
   let score = 0;
   do {
+    console.log(block);
     score = getScoreFromBlock(block, sessionInstance.createdAt);
     ++_it;
   } while (block = block._n && _iterRestrict > _it);

@@ -45,6 +45,6 @@ async function handle(_data) {
     group: [ 'Highscores.userId' ],
     order: [ [ Highscore, 'score', 'DESC' ] ]
   });
-  scores = scores.sort((a, b) => a.score - b.score);
+  scores.sort((a, b) => a.score - b.score);
   return scores.slice(0, 50);
 }

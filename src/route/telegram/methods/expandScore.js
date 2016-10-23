@@ -97,6 +97,6 @@ async function saveScore(score = 0, sessionInstance) {
     opts.chat_id = sessionInstance.chat_instance;
     opts.message_id = sessionInstance.message_id;
   }
-  let tgResult = await telegram.sendApiRequest('sendGame', opts);
+  let tgResult = await telegram.sendApiRequest('setGameScore', opts);
   return scoreInstance;
 }

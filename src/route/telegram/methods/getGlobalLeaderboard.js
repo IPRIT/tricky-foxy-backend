@@ -19,7 +19,7 @@ async function handle(_data) {
   if (!session) {
     throw new HttpError('Session does not exist');
   }
-  return Session.findAll({
+  let scores = await Session.findAll({
     attributes: [
       ['from_id', 'id'],
       ['from_first_name', 'first_name'],
@@ -35,4 +35,6 @@ async function handle(_data) {
     group: [ 'Highscores.userId' ],
     order: [ [ Highscore, 'score', 'DESC' ] ]
   });
+  scores = scores.sort((a, b) => a.score - b.score);
+  return scores.slice(0, 50);
 }

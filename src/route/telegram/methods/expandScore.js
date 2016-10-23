@@ -37,9 +37,9 @@ async function handle(_data) {
   let decrypted = encryption.decrypt(encryptionConfig, hash);
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
   let score = getScore(passedIslands, sessionInstance);
-  await saveScore(score, sessionInstance);
+  let scoreInstance = await saveScore(score, sessionInstance);
   return {
-    result: score
+    result: scoreInstance.score
   };
 }
 

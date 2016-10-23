@@ -37,6 +37,7 @@ async function handle(_data) {
   let decrypted = encryption.decrypt(encryptionConfig, hash);
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
   let score = getScore(passedIslands, sessionInstance);
+  await saveScore(score, sessionInstance);
   return {
     result: score
   };
@@ -75,4 +76,13 @@ function getScoreFromBlock(block, sessionCreatedAt, prevT) {
     throw new HttpError();
   }
   return parseInt(_s, 20);
+}
+
+async function saveScore(score = 0, sessionInstance) {
+  score = Math.min(1e5, Math.max(0, score));
+  return Highscore.create({
+    chatId: sessionInstance.chat_instance,
+    userId: sessionInstance.from_id,
+    score
+  });
 }

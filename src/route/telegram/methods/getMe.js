@@ -1,9 +1,5 @@
-import Promise from 'bluebird';
-import { typeCheck as isType } from 'type-check';
 import deap from 'deap';
-import lodash from 'lodash';
-import request from 'request-promise';
-import { config } from '../../../utils';
+import { config, md5 } from '../../../utils';
 import { Session, Highscore } from '../../../models';
 
 export default (req, res, next) => {
@@ -34,8 +30,9 @@ async function handle(_data) {
       userId: sessionInstance.from_id
     }
   }) || 0;
+  let _shard = md5(`${sessionInstance.from_id}->${config.encryption.salt}`);
   
   return deap.extend(sessionInstance.get({ plain: true }), {
-    localHighscore, globalHighscore
+    localHighscore, globalHighscore, _shard
   });
 }

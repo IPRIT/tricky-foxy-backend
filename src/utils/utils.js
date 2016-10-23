@@ -1,5 +1,6 @@
 import { typeCheck as isType } from 'type-check';
 import Promise from 'bluebird';
+import crypto from 'crypto';
 
 export class AsyncQueue {
   queue = [];
@@ -51,4 +52,8 @@ export function ensureValue(actual, type, defaultValue, fn = () => {}) {
   } catch (err) {
     return defaultValue;
   }
+}
+
+export function md5(str) {
+  return crypto.createHash('md5').update(str).digest('hex');
 }

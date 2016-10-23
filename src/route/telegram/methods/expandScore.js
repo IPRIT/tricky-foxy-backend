@@ -36,7 +36,6 @@ async function handle(_data) {
   }, defaultEncryptionConfig);
   let decrypted = encryption.decrypt(encryptionConfig, hash);
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
-  console.log(passedIslands);
   let score = getScore(passedIslands, sessionInstance);
   return {
     result: score
@@ -52,10 +51,9 @@ function getScore(passedIslands, sessionInstance) {
   let _iterRestrict = 1e6;
   let score = 0;
   do {
-    console.log(block);
     score = getScoreFromBlock(block, sessionInstance.createdAt);
-    ++_it;
     block = block._n;
+    ++_it;
   } while (block && _iterRestrict > _it);
   return score;
 }
@@ -63,7 +61,6 @@ function getScore(passedIslands, sessionInstance) {
 function getScoreFromBlock(block, sessionCreatedAt) {
   let { _f, _p, _r, _s, _t } = block || {};
   
-  console.log(_f);
   if (!Array.isArray(_f) || _f.length !== 2) {
     throw new HttpError('f');
   } else if (_p > 1 || _p < 0) {

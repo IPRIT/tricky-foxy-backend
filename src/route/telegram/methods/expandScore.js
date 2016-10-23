@@ -83,6 +83,7 @@ async function saveScore(score = 0, sessionInstance) {
   return Highscore.create({
     chatId: sessionInstance.chat_instance,
     userId: sessionInstance.from_id,
+    sessionId: sessionInstance.id,
     score
   });
 }

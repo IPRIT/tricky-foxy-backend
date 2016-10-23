@@ -78,7 +78,7 @@ async function handleMessage(_data = {}) {
   });
 }
 
-async function sendApiRequest(method, data) {
+export async function sendApiRequest(method, data) {
   let apiEndpoint = `https://api.telegram.org/bot${config.telegram.secure}/${method}`;
   let options = {
     method: 'POST',

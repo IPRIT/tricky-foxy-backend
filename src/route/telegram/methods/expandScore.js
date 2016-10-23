@@ -3,7 +3,7 @@ import { typeCheck as isType } from 'type-check';
 import deap from 'deap';
 import lodash from 'lodash';
 import request from 'request-promise';
-import { config, md5 } from '../../../utils';
+import { config, md5, telegram } from '../../../utils';
 import Sequelize from 'sequelize';
 import { Session, Highscore } from '../../../models';
 import Encryption from 'one-encryption';
@@ -80,10 +80,23 @@ function getScoreFromBlock(block, sessionCreatedAt, prevT) {
 
 async function saveScore(score = 0, sessionInstance) {
   score = Math.min(1e5, Math.max(0, score));
-  return Highscore.create({
+  let scoreInstance = await Highscore.create({
     chatId: sessionInstance.chat_instance,
     userId: sessionInstance.from_id,
     sessionId: sessionInstance.id,
     score
   });
+  let opts = {
+    user_id: sessionInstance.from_id,
+    score,
+    edit_message: true
+  };
+  if (sessionInstance.inline_message_id) {
+    opts.inline_message_id = sessionInstance.inline_message_id;
+  } else {
+    opts.chat_id = sessionInstance.chat_instance;
+    opts.message_id = sessionInstance.message_id;
+  }
+  let tgResult = await telegram.sendApiRequest('sendGame', opts);
+  return scoreInstance;
 }

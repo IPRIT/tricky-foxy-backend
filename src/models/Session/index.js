@@ -41,6 +41,9 @@ let Session = sequelize.define('Session', {
   inline_message_id: {
     type: Sequelize.STRING
   },
+  chat_id: {
+    type: Sequelize.STRING
+  },
   chat_instance: {
     type: Sequelize.STRING
   },

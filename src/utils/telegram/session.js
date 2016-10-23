@@ -7,7 +7,8 @@ import { config } from '../index';
 import { Session } from '../../models';
 
 export function create(_data) {
-  let { id, from = {}, message = {}, inline_message_id, chat_instance, data, game_short_name } = _data;
+  let { id, from = {}, message = {}, inline_message_id, chat_instance, data, game_short_name } = _data || {};
+  let { chat = {} } = message || {};
   
   console.log({
     query_id: id,
@@ -17,6 +18,7 @@ export function create(_data) {
     from_username: from.username,
     message_id: message.message_id,
     inline_message_id,
+    chat_id: chat.id,
     chat_instance,
     data,
     game_short_name
@@ -29,6 +31,7 @@ export function create(_data) {
     from_username: from.username,
     message_id: message.message_id,
     inline_message_id,
+    chat_id: chat.id,
     chat_instance,
     data,
     game_short_name

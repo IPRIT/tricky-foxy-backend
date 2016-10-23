@@ -94,7 +94,7 @@ async function saveScore(score = 0, sessionInstance) {
   if (sessionInstance.inline_message_id) {
     opts.inline_message_id = sessionInstance.inline_message_id;
   } else {
-    opts.chat_id = sessionInstance.chat_instance;
+    opts.chat_id = sessionInstance.chat_id;
     opts.message_id = sessionInstance.message_id;
   }
   let tgResult = await telegram.sendApiRequest('setGameScore', opts);

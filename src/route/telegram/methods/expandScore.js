@@ -55,7 +55,8 @@ function getScore(passedIslands, sessionInstance) {
     console.log(block);
     score = getScoreFromBlock(block, sessionInstance.createdAt);
     ++_it;
-  } while (block = block._n && _iterRestrict > _it);
+    block = block._n;
+  } while (block && _iterRestrict > _it);
   return score;
 }
 

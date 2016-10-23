@@ -36,6 +36,7 @@ async function handle(_data) {
   }, defaultEncryptionConfig);
   let decrypted = encryption.decrypt(encryptionConfig, hash);
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
+  console.log(passedIslands);
   let score = getScore(passedIslands, sessionInstance);
   return {
     result: score
@@ -61,15 +62,15 @@ function getScoreFromBlock(block, sessionCreatedAt) {
   let { _f, _p, _r, _s, _t } = block || {};
   
   if (!Array.isArray(_f) || _f.length !== 2) {
-    throw new HttpError();
+    throw new HttpError('f');
   } else if (_p > 1 || _p < 0) {
-    throw new HttpError();
+    throw new HttpError('p');
   } else if (_r > 1 || _r < 0) {
-    throw new HttpError();
+    throw new HttpError('r');
   } else if (new Date(sessionCreatedAt) > new Date(_t)) {
-    throw new HttpError();
+    throw new HttpError('t');
   } else if (typeof _s !== 'string') {
-    throw new HttpError();
+    throw new HttpError('s');
   }
   return parseInt(_s, 20);
 }

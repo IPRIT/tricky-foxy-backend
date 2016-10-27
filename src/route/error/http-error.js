@@ -27,7 +27,7 @@ export function ServerError(err, req, res, next) {
   if (req.hasOwnProperty('isJsonRequest') && !req.isJsonRequest) {
     // todo
   } else {
-    res.status(500).json({
+    res.status(200).json({
       error: {
         description: errorMessage,
         httpCode: 500,

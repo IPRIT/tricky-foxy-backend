@@ -40,7 +40,7 @@ app.use('/', [
   requestRestrict({
     error: new HttpError('Too many requests', 429),
     lookup: [ 'headers.x-real-ip', 'headers.X-Real-IP', 'headers.x-forwarded-for' ],
-    maxRequestsPerQuantum: 10
+    maxRequestsPerQuantum: 20
   })
 ], apiRouter);
 
@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 // will print stacktrace
 if (process.env.NODE_ENV === 'development') {
   app.use((err, req, res, next) => {
-    res.status(err.status || 500);
+    res.status(err.status || 200);
     console.error(err);
     res.end();
   });
@@ -72,7 +72,7 @@ if (process.env.NODE_ENV === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
-  res.status(err.status || 500);
+  res.status(err.status || 200);
   res.end();
 });
 

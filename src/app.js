@@ -25,13 +25,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(formData.parse());
 app.use(formData.stream());
 app.use(formData.union());
-app.use(cookieParser(config.cookieSecret));
+//app.use(cookieParser(config.cookieSecret));
 app.enable('trust proxy');
-app.use(session({
+/*app.use(session({
   secret: config.sessionSecret, //'keyboard cat offset',
   resave: false,
   saveUninitialized: true
-}));
+}));*/
 
 /*
  * Connecting routers

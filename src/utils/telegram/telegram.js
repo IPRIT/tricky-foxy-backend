@@ -39,6 +39,12 @@ async function handleInlineQuery(_data = {}) {
       inline_keyboard: [[{
         text: 'Play Tricky Foxy!',
         callback_game: true
+      }, {
+        text: 'Play with friends',
+        switch_inline_query: 'Tricky Foxy'
+      }, {
+        text: 'Rate this game',
+        url: 'https://telegram.me/storebot?start=foxgamebot'
       }]]
     }
   }];
@@ -49,7 +55,7 @@ async function handleInlineQuery(_data = {}) {
     });
   let answerInlineQuery = {
     inline_query_id: id,
-    cache_time: 1,
+    cache_time: 10,
     results
   };
   return sendApiRequest('answerInlineQuery', answerInlineQuery)

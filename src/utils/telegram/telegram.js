@@ -80,7 +80,19 @@ async function handleMessage(_data = {}) {
   let { chat, game_short_name = 'trickyfoxy' } = _data;
   return sendApiRequest('sendGame', {
     chat_id: chat.id,
-    game_short_name
+    game_short_name,
+    reply_markup: {
+      inline_keyboard: [[{
+        text: 'Play Tricky Foxy!',
+        callback_game: true
+      }, {
+        text: 'Play with friends',
+        switch_inline_query: 'Tricky Foxy'
+      }, {
+        text: 'Rate this game',
+        url: 'https://telegram.me/storebot?start=foxgamebot'
+      }]]
+    }
   });
 }
 

@@ -52,6 +52,10 @@ let Session = sequelize.define('Session', {
   },
   game_short_name: {
     type: Sequelize.STRING
+  },
+  isBanned: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   engine: 'MYISAM',
@@ -64,7 +68,24 @@ let Session = sequelize.define('Session', {
   }, {
     name: 'chat_id_index',
     fields: [ 'chat_instance' ]
-  }]
+  }],
+  classMethods: {
+    isUserBanned(userId) {
+      return Session.findOne({
+        where: {
+          from_id: userId,
+          isBanned: true
+        }
+      }).then(session => !!session);
+    }
+  },
+  instanceMethods: {
+    ban() {
+      return this.update({
+        isBanned: true
+      });
+    }
+  }
 });
 
 export default Session;

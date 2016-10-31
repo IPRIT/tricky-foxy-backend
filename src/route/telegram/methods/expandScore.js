@@ -29,6 +29,8 @@ async function handle(_data) {
   });
   if (!sessionInstance) {
     throw new HttpError('Session not found');
+  } else if (sessionInstance.isBanned || await Session.isUserBanned(sessionInstance.from_id)) {
+    throw new HttpError();
   }
   let shard = md5(`${sessionInstance.from_id}->${config.encryption.salt}`);
   let encryptionConfig = deap.extend({
@@ -79,6 +81,10 @@ function getScoreFromBlock(block, sessionCreatedAt, prevT) {
 }
 
 async function saveScore(score = 0, sessionInstance) {
+  if (score > 200) {
+    await sessionInstance.ban();
+    throw new HttpError();
+  }
   score = Math.min(1e5, Math.max(0, score));
   let scoreInstance = await Highscore.create({
     chatId: sessionInstance.chat_instance,
@@ -97,6 +103,6 @@ async function saveScore(score = 0, sessionInstance) {
     opts.chat_id = sessionInstance.chat_id;
     opts.message_id = sessionInstance.message_id;
   }
-  let tgResult = await telegram.sendApiRequest('setGameScore', opts);
+  await telegram.sendApiRequest('setGameScore', opts);
   return scoreInstance;
 }

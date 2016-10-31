@@ -21,7 +21,7 @@ async function handle(_data) {
   if (lastUpdate && curTime.getTime() - lastUpdate.getTime() < cacheTimeout) {
     return {
       lastUpdate,
-      cache
+      scores: cache
     };
   }
   let scores = await Session.findAll({

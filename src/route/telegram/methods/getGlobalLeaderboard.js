@@ -1,11 +1,9 @@
-import Promise from 'bluebird';
-import { typeCheck as isType } from 'type-check';
-import deap from 'deap';
-import lodash from 'lodash';
-import request from 'request-promise';
-import { config } from '../../../utils';
 import Sequelize from 'sequelize';
 import { Session, Highscore } from '../../../models';
+
+let cache = {};
+let lastUpdate;
+let cacheTimeout = 5 * 1000 * 30;
 
 export default (req, res, next) => {
   let { query } = req;
@@ -18,6 +16,10 @@ async function handle(_data) {
   let { session = '' } = _data;
   if (!session) {
     throw new HttpError('Session does not exist');
+  }
+  let curTime = new Date();
+  if (lastUpdate && curTime.getTime() - lastUpdate.getTime() < cacheTimeout) {
+    return cache;
   }
   let scores = await Session.findAll({
     attributes: [
@@ -36,5 +38,10 @@ async function handle(_data) {
     order: [ [ Highscore, 'score', 'DESC' ] ]
   });
   scores = scores.map(score => score.get({plain: true})).sort((a, b) => b.score - a.score);
-  return scores.slice(0, 50);
+  lastUpdate = new Date();
+  cache = scores.slice(0, 50);
+  return {
+    lastUpdate,
+    scores: cache
+  };
 }

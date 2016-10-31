@@ -3,7 +3,7 @@ import { Session, Highscore } from '../../../models';
 
 let cache = {};
 let lastUpdate;
-let cacheTimeout = 5 * 1000 * 30;
+let cacheTimeout = 1000 * 60;
 
 export default (req, res, next) => {
   let { query } = req;

@@ -20,7 +20,7 @@ async function handle(_data) {
   let curTime = new Date();
   if (lastUpdate && curTime.getTime() - lastUpdate.getTime() < cacheTimeout) {
     return {
-      lastUpdate,
+      lastUpdate: lastUpdate.getTime(),
       scores: cache
     };
   }
@@ -44,7 +44,7 @@ async function handle(_data) {
   lastUpdate = new Date();
   cache = scores.slice(0, 50);
   return {
-    lastUpdate,
+    lastUpdate: lastUpdate.getTime(),
     scores: cache
   };
 }

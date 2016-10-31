@@ -19,7 +19,10 @@ async function handle(_data) {
   }
   let curTime = new Date();
   if (lastUpdate && curTime.getTime() - lastUpdate.getTime() < cacheTimeout) {
-    return cache;
+    return {
+      lastUpdate,
+      cache
+    };
   }
   let scores = await Session.findAll({
     attributes: [

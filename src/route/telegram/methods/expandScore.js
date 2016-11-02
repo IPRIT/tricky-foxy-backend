@@ -55,7 +55,7 @@ function getScore(passedIslands, sessionInstance) {
   let _iterRestrict = 1e6;
   let score = 0;
   do {
-    score = getScoreFromBlock(block, sessionInstance.createdAt, _prevT);
+    score = getScoreFromBlock(block, sessionInstance, _prevT);
     _prevT = block._t;
     block = block._n;
     ++_it;
@@ -63,25 +63,31 @@ function getScore(passedIslands, sessionInstance) {
   return score;
 }
 
-function getScoreFromBlock(block, sessionCreatedAt, prevT) {
+function getScoreFromBlock(block, sessionInstance, prevT) {
+  let sessionCreatedAt = sessionInstance.createdAt;
   let { _f, _p, _r, _s, _t } = block || {};
   
   if (!Array.isArray(_f) || _f.length !== 2) {
+    sessionInstance.ban();
     throw new HttpError();
   } else if (_p > 1 || _p < 0) {
+    sessionInstance.ban();
     throw new HttpError();
   } else if (_r > 1 || _r < 0) {
+    sessionInstance.ban();
     throw new HttpError();
   } else if (new Date(sessionCreatedAt) > new Date(_t) || _t < prevT) {
+    sessionInstance.ban();
     throw new HttpError();
   } else if (typeof _s !== 'string') {
+    sessionInstance.ban();
     throw new HttpError();
   }
   return parseInt(_s, 20);
 }
 
 async function saveScore(score = 0, sessionInstance) {
-  if (score > 200) {
+  if (score > 300) {
     await sessionInstance.ban();
     throw new HttpError();
   }

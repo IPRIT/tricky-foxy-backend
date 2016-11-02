@@ -21,8 +21,7 @@ export function ServerError(err, req, res, next) {
     return next(err);
   }
   const isDevelopmentMode = process.env.NODE_ENV === 'development';
-  let errorMessage = isDevelopmentMode ?
-    err && err.message || defaultErrorMessage : defaultErrorMessage;
+  let errorMessage = defaultErrorMessage;
   
   if (req.hasOwnProperty('isJsonRequest') && !req.isJsonRequest) {
     // todo

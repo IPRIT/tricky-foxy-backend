@@ -39,12 +39,9 @@ async function handleInlineQuery(_data = {}) {
       inline_keyboard: [[{
         text: 'Play Tricky Foxy!',
         callback_game: true
-      }], [{
+      }, {
         text: 'Play with friends',
         switch_inline_query: 'Tricky Foxy'
-      }, {
-        text: 'Rate this game',
-        url: 'https://telegram.me/storebot?start=foxgamebot'
       }]]
     }
   }];
@@ -85,12 +82,9 @@ async function handleMessage(_data = {}) {
       inline_keyboard: [[{
         text: 'Play Tricky Foxy!',
         callback_game: true
-      }], [{
+      }, {
         text: 'Play with friends',
         switch_inline_query: 'Tricky Foxy'
-      }, {
-        text: 'Rate this game',
-        url: 'https://telegram.me/storebot?start=foxgamebot'
       }]]
     }
   });

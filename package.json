@@ -4,7 +4,7 @@
   "description": "Tricky foxy game",
   "author": "(c) Alexander Belov (github.com/IPRIT)",
   "scripts": {
-    "start-dev": "NODE_ENV=development node server.js",
+    "start-dev": "node server.js",
     "encrypt": "ts-node tools/encrypt.ts",
     "decrypt": "ts-node tools/decrypt.ts"
   },

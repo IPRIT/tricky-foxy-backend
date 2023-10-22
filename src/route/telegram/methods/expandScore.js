@@ -117,6 +117,8 @@ async function saveScore(score = 0, sessionInstance) {
 
       const [score] = result;
 
+      console.log(result, score, score.user.id, user_id)
+
       if (ok && score && score.user.id === user_id) {
         await scoreInstance.update({
           score: score.score,

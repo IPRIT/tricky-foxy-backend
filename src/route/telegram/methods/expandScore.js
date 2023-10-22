@@ -6,12 +6,7 @@ import request from 'request-promise';
 import { config, md5, telegram } from '../../../utils';
 import Sequelize from 'sequelize';
 import { Session, Highscore } from '../../../models';
-import Encryption from 'one-encryption';
-
-const encryption = new Encryption();
-var defaultEncryptionConfig = {
-  algorithm: 'aes-256-ecb'
-};
+import CryptoJS from 'crypto-js';
 
 export default (req, res, next) => {
   let { body } = req;
@@ -34,13 +29,11 @@ async function handle(_data) {
   }
   let shard = md5(`${sessionInstance.from_id}->${process.env.SALT}`);
   console.log('shard', shard)
-  let encryptionConfig = deap.extend({
-    key: shard
-  }, defaultEncryptionConfig);
-  console.log('encryptionConfig', encryptionConfig)
-  let decrypted = encryption.decrypt(encryptionConfig, hash);
 
-  console.log('encryption.decrypt', hash)
+  const bytes = CryptoJS.AES.decrypt(hash, shard);
+  const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+
+  console.log('encryption.decrypt', decrypted)
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
   let score = getScore(passedIslands, sessionInstance);
   let scoreInstance = await saveScore(score, sessionInstance);

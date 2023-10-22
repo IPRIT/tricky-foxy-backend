@@ -12,7 +12,7 @@ let Highscore = sequelize.define('Highscore', {
     allowNull: false
   },
   userId: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   },
   score: {
@@ -20,16 +20,17 @@ let Highscore = sequelize.define('Highscore', {
     defaultValue: 0
   }
 }, {
-  engine: 'MYISAM',
+  tableName: 'highscores',
+
   indexes: [{
     name: 'score_index',
-    fields: [ 'score' ]
+    fields: ['score']
   }, {
     name: 'user_index',
-    fields: [ 'userId' ]
+    fields: ['userId']
   }, {
     name: 'chat_index',
-    fields: [ 'chatId' ]
+    fields: ['chatId']
   }]
 });
 

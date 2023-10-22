@@ -1,12 +1,9 @@
-import config from '../utils/config';
 import cors from 'cors';
 
-const env = config.env;
-
 var corsOptions = {
-  origin: config.cors.origins.join(' '),
-  methods: config.cors.methods,
-  allowedHeaders: config.cors.headers
+  origin: '*',
+  methods: [ "POST", "GET", "OPTIONS" ],
+  allowedHeaders: [ "Content-Type", "X-Token", "X-Requested-With" ]
 };
 
 export default cors(corsOptions);

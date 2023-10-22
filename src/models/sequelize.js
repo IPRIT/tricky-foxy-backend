@@ -1,24 +1,35 @@
 import Sequelize from 'sequelize';
-import config from '../utils/config';
-import Log from 'log4js';
+import chalk from 'chalk';
 
-let log = Log.getLogger('Sequelize');
+require('dotenv').config()
+
+const isDevelopment = process.env.NODE_ENV === 'development'
+
+const logger = (query, timing) => {
+  console.log(`${chalk.hsl(330, 100, 70)('[%d ms]')} ` + `${chalk.cyanBright.bold('%s')}`, timing, query);
+};
 
 const sequelize = new Sequelize(
-  config.db.database,
-  config.db.username,
-  config.db.password, {
-    host: config.db.host,
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USERNAME,
+  process.env.DATABASE_PASSWORD, {
+    host: process.env.DATABASE_HOST,
     dialect: 'mysql',
-
-    pool: {
-      max: config.db.maxPoolAmount || 10,
-      min: config.db.minPoolAmount || 0,
-      idle: config.db.idleTimeoutMs || 10000
+    benchmark: isDevelopment,
+    logging: isDevelopment ? logger : false,
+    define: {
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_unicode_ci',
+      engine: 'InnoDB'
     },
-
-    logging: config.env === 'development' ? false && log.debug.bind(log) : false
-  }
-);
+    dialectOptions: {
+      supportBigNumbers: true
+    },
+    pool: {
+      min: 0,
+      max: 100,
+      idle: 30000
+    }
+  });
 
 export default sequelize;

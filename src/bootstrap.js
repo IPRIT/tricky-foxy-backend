@@ -1,6 +1,6 @@
 'use strict';
 
-import config from './utils/config';
+require('dotenv').config()
 
 import http from 'http';
 import app from './app';
@@ -11,9 +11,10 @@ import app from './app';
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(config.port);
+let port = normalizePort(process.env.PORT);
+
 app.set('port', port);
-app.set('env', config.env);
+app.set('env', process.env.NODE_ENV || 'development');
 
 /**
  * Create HTTP server.
@@ -27,12 +28,7 @@ let server = http.createServer(app);
 server.on('error', onError);
 server.on('listening', onListening);
 
-if (config.ip) {
-  server.listen(port, config.ip);
-} else {
-  server.listen(port);
-}
-
+server.listen(port);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,5 +84,5 @@ function onListening() {
   let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.log(`Listening on ${bind} [in ${process.env.NODE_ENV || 'unknown'} mode].`);
+  console.log(`Listening on ${bind} [in ${process.env.NODE_ENV || 'development'} mode].`);
 }

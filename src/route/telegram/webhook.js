@@ -4,7 +4,7 @@ import * as telegram from '../../utils/telegram/telegram';
 
 const router = express.Router();
 
-router.all(`/${config.telegram.webhook}`, (req, res, next) => {
+router.all(`/${process.env.TELEGRAM_WEBHOOK}`, (req, res, next) => {
   let { body } = req;
   console.log(body);
   telegram.handle(body).then(() => {

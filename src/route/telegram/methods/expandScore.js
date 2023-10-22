@@ -32,7 +32,7 @@ async function handle(_data) {
   } else if (sessionInstance.isBanned || await Session.isUserBanned(sessionInstance.from_id)) {
     throw new HttpError();
   }
-  let shard = md5(`${sessionInstance.from_id}->${config.encryption.salt}`);
+  let shard = md5(`${sessionInstance.from_id}->${process.env.SALT}`);
   let encryptionConfig = deap.extend({
     key: shard
   }, defaultEncryptionConfig);
@@ -66,7 +66,7 @@ function getScore(passedIslands, sessionInstance) {
 function getScoreFromBlock(block, sessionInstance, prevT) {
   let sessionCreatedAt = sessionInstance.createdAt;
   let { _f, _p, _r, _s, _t } = block || {};
-  
+
   if (!Array.isArray(_f) || _f.length !== 2) {
     sessionInstance.ban();
     throw new HttpError();

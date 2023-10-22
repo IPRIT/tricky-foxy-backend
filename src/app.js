@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config()
+
 /**
  * Setting up a global http error for handle API errors
  */
@@ -14,11 +16,10 @@ import session from 'express-session';
 import formData from 'express-form-data';
 import requestRestrict from 'express-light-limiter';
 import apiRouter from './route';
-import { config } from './utils';
 import { ClientError, ServerError } from './route/error/http-error';
 
 let app = express();
-  
+
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -68,7 +68,7 @@ async function handleCallbackQuery(_data = {}) {
     callback_query_id: id,
     text: 'test',
     show_alert: true,
-    url: `http://play.alexbelov.xyz/#session=${sessionInstance.sessionId}`
+    url: `https://tg.ya-mc.ru/#session=${sessionInstance.sessionId}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }
@@ -91,7 +91,7 @@ async function handleMessage(_data = {}) {
 }
 
 export async function sendApiRequest(method, data) {
-  let apiEndpoint = `https://api.telegram.org/bot${config.telegram.secure}/${method}`;
+  let apiEndpoint = `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/${method}`;
   let options = {
     method: 'POST',
     uri: apiEndpoint,

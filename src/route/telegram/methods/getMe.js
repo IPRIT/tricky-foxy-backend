@@ -30,8 +30,8 @@ async function handle(_data) {
       userId: sessionInstance.from_id
     }
   }) || 0;
-  let _shard = md5(`${sessionInstance.from_id}->${config.encryption.salt}`);
-  
+  let _shard = md5(`${sessionInstance.from_id}->${process.env.SALT}`);
+
   return deap.extend(sessionInstance.get({ plain: true }), {
     localHighscore, globalHighscore, _shard
   });

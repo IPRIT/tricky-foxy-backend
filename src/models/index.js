@@ -8,7 +8,7 @@ const log = Log.getLogger('models');
 log.info('Models are syncing...');
 sequelize.sync(/**{ force: true }/**/).then(() => {
   log.info('Models synced!');
-}).catch(log.fatal.bind(log, 'Error:'));
+}).catch(err => console.error(err));
 
 /**
  * Define relatives between models

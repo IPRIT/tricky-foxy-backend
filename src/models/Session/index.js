@@ -21,7 +21,7 @@ let Session = sequelize.define('Session', {
     type: Sequelize.STRING
   },
   from_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   from_first_name: {
     type: Sequelize.STRING,
@@ -58,16 +58,14 @@ let Session = sequelize.define('Session', {
     defaultValue: false
   }
 }, {
-  engine: 'MYISAM',
+  tableName: 'sessions',
+
   indexes: [{
-    name: 'session_id_index',
-    fields: [ 'sessionId' ]
-  }, {
-    name: 'user_id_index',
-    fields: [ 'from_id' ]
+    name: 'from_id_index',
+    fields: ['from_id']
   }, {
     name: 'chat_id_index',
-    fields: [ 'chat_instance' ]
+    fields: ['chat_instance']
   }],
   classMethods: {
     isUserBanned(userId) {

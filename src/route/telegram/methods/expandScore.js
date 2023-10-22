@@ -107,11 +107,23 @@ async function saveScore(score = 0, sessionInstance) {
     opts.message_id = sessionInstance.message_id;
   }
   try {
-    const response = await telegram.sendApiRequest('setGameScore', opts);
-
-    console.log('response', response)
+    await telegram.sendApiRequest('setGameScore', opts);
   } catch (err) {
-    console.log('err', err)
+    if (err.toString().includes('BOT_SCORE_NOT_MODIFIED')) {
+      const { user_id, inline_message_id, chat_id, message_id } = opts;
+      const result = await telegram.sendApiRequest('getGameHighScores', {
+        user_id, inline_message_id, chat_id, message_id
+      });
+      console.log(result);
+
+      const [score] = result;
+
+      if (score && score.user.id === user_id) {
+        await scoreInstance.update({
+          score: score.score,
+        })
+      }
+    }
   }
   return scoreInstance;
 }

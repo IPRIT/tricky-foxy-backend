@@ -68,7 +68,7 @@ async function handleCallbackQuery(_data = {}) {
     callback_query_id: id,
     text: 'test',
     show_alert: true,
-    url: `https://tg.ya-mc.ru/?session=${sessionInstance.sessionId}`
+    url: `https://tg.ya-mc.ru/#session=${sessionInstance.sessionId}`
   };
   return sendApiRequest('answerCallbackQuery', answerCallbackQuery);
 }

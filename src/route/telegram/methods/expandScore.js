@@ -10,7 +10,7 @@ import Encryption from 'one-encryption';
 
 const encryption = new Encryption();
 var defaultEncryptionConfig = {
-  algorithm : 'aes-256-ecb'
+  algorithm: 'aes-256-ecb'
 };
 
 export default (req, res, next) => {
@@ -33,10 +33,14 @@ async function handle(_data) {
     throw new HttpError();
   }
   let shard = md5(`${sessionInstance.from_id}->${process.env.SALT}`);
+  console.log('shard', shard)
   let encryptionConfig = deap.extend({
     key: shard
   }, defaultEncryptionConfig);
+  console.log('encryptionConfig', encryptionConfig)
   let decrypted = encryption.decrypt(encryptionConfig, hash);
+
+  console.log('encryption.decrypt', hash)
   let passedIslands = JSON.parse(decrypted.split('').reverse().join(''));
   let score = getScore(passedIslands, sessionInstance);
   let scoreInstance = await saveScore(score, sessionInstance);

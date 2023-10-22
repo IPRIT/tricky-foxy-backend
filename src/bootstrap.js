@@ -28,7 +28,11 @@ let server = http.createServer(app);
 server.on('error', onError);
 server.on('listening', onListening);
 
-server.listen(port);
+if (process.env.HOSTNAME) {
+  server.listen(port, process.env.HOSTNAME);
+} else {
+  server.listen(port);
+}
 
 /**
  * Normalize a port into a number, string, or false.

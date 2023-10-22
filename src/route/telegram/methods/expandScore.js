@@ -119,7 +119,7 @@ async function saveScore(score = 0, sessionInstance) {
 
       console.log(result, score, score.user.id, user_id)
 
-      if (ok && score && score.user.id === user_id) {
+      if (ok && score && String(score.user.id) === String(user_id)) {
         await scoreInstance.update({
           score: score.score,
         })

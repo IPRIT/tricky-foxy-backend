@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize from 'sequelize';
 import sequelize from '../sequelize';
 import crypto from 'crypto';
 
@@ -6,24 +6,7 @@ function RandomBytes(length = 16) {
   return () => crypto.randomBytes(length).toString('hex')
 }
 
-class Session extends Sequelize.Model {
-  static isUserBanned(userId) {
-    return Session.findOne({
-      where: {
-        from_id: userId,
-        isBanned: true
-      }
-    }).then(session => !!session);
-  }
-
-  ban() {
-    return this.update({
-      isBanned: true
-    });
-  }
-}
-
-Session.init({
+let Session = sequelize.define('Session', {
   id: {
     type: Sequelize.INTEGER.UNSIGNED,
     primaryKey: true,
@@ -75,7 +58,6 @@ Session.init({
     defaultValue: false
   }
 }, {
-  sequelize,
   tableName: 'sessions',
 
   indexes: [{
@@ -86,5 +68,20 @@ Session.init({
     fields: ['chat_instance']
   }],
 });
+
+Session.isUserBanned = function isUserBanned(userId) {
+  return Session.findOne({
+    where: {
+      from_id: userId,
+      isBanned: true
+    }
+  }).then(session => !!session);
+}
+
+Session.prototype.ban = function () {
+  return this.update({
+    isBanned: true
+  });
+}
 
 export default Session;

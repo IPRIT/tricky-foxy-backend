@@ -52,7 +52,16 @@ function getScore(passedIslands, sessionInstance) {
   let _iterRestrict = 1e6;
   let score = 0;
   do {
+    const lastScore = score;
     score = getScoreFromBlock(block, sessionInstance, _prevT);
+
+    console.log('score:', score, 'lastScore;', lastScore)
+
+    if (lastScore + 1 !== score) {
+      sessionInstance.ban();
+      throw new HttpError();
+    }
+
     _prevT = block._t;
     block = block._n;
     ++_it;
@@ -84,11 +93,7 @@ function getScoreFromBlock(block, sessionInstance, prevT) {
 }
 
 async function saveScore(score = 0, sessionInstance) {
-  if (score > 300) {
-    await sessionInstance.ban();
-    throw new HttpError();
-  }
-  score = Math.min(1e5, Math.max(0, score));
+  score = Math.min(1e6, Math.max(0, score));
   let scoreInstance = await Highscore.create({
     chatId: sessionInstance.chat_instance,
     userId: sessionInstance.from_id,

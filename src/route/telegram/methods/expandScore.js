@@ -55,8 +55,6 @@ function getScore(passedIslands, sessionInstance) {
     const lastScore = score;
     score = getScoreFromBlock(block, sessionInstance, _prevT);
 
-    console.log('score:', score, 'lastScore;', lastScore)
-
     if (lastScore + 1 !== score) {
       sessionInstance.ban();
       throw new HttpError();

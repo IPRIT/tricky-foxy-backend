@@ -41,6 +41,6 @@ async function handle(_data) {
   });
   scores = scores.map(score => score.get({plain: true})).sort((a, b) => b.score - a.score);
   return {
-    scores: scores.slice(0, 50)
+    scores: scores.slice(0, 500)
   };
 }

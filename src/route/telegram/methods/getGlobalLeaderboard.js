@@ -42,7 +42,7 @@ async function handle(_data) {
   });
   scores = scores.map(score => score.get({plain: true})).sort((a, b) => b.score - a.score);
   lastUpdate = new Date();
-  cache = scores.slice(0, 50);
+  cache = scores.slice(0, 500);
   return {
     lastUpdate: lastUpdate.getTime(),
     scores: cache
